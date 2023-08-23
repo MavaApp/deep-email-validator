@@ -1,0 +1,30 @@
+name: Publish Models
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
+          # Defaults to the user or organization that owns the workflow file
+          scope: "@MavaApp"
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build package
+        run: npm run compile
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

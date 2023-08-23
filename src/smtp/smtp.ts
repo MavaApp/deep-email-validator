@@ -13,7 +13,7 @@ export const checkSMTP = async (sender: string, recipient: string, exchange: str
   return new Promise(r => {
     let receivedData = false
     let closed = false
-    const socket = net.createConnection(25, exchange)
+    const socket = net.createConnection(587, exchange)
     socket.setEncoding('ascii')
     socket.setTimeout(timeout)
     socket.on('error', error => {
