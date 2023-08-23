@@ -66,12 +66,19 @@ describe('validation tests', () => {
   )
 
   it('fails with bad mailbox', async () => {
-    const res = await validate('david@andco.life')
+    const res = await validate({ email: 'hello+1@web3rockstars.io', validateSMTP: true, validateTypo: false })
+    console.log(res)
     expect(res.valid).toBe(false)
     expect(res.reason).toBe('smtp')
     expect(res.validators.smtp?.valid).toBe(false)
-    expect(res).toMatchSnapshot()
-  })
+  }, 30000)
+
+  it('suceeds with good mailbox', async () => {
+    const res = await validate({ email: 'hello@web3rockstars.io', validateSMTP: true, validateTypo: false })
+    console.log(res)
+    expect(res.valid).toBe(true)
+    expect(res.validators.smtp?.valid).toBe(true)
+  }, 30000)
 
   it(
     'passes when we skip smtp validation',

@@ -50,6 +50,31 @@ Object {
 }
 `;
 
+exports[`validation tests fails with bad dns 2`] = `
+Object {
+  "reason": "mx",
+  "valid": false,
+  "validators": Object {
+    "disposable": Object {
+      "valid": true,
+    },
+    "mx": Object {
+      "reason": "MX record not found",
+      "valid": false,
+    },
+    "regex": Object {
+      "valid": true,
+    },
+    "smtp": Object {
+      "valid": false,
+    },
+    "typo": Object {
+      "valid": true,
+    },
+  },
+}
+`;
+
 exports[`validation tests fails with bad mailbox 1`] = `
 Object {
   "reason": "smtp",
